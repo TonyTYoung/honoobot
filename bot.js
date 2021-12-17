@@ -27,7 +27,8 @@ function onMessageHandler (target, context, msg, self) {
   if (self) { return; } // Ignore messages from the bot
 
   // Remove whitespace from chat message
-  const commandName = msg.trim();
+  const commandName = msg.trim().toLowerCase();
+  if (commandName[0] !== '!') { return; }
 
   // If the command is known, let's execute it
   if (commandName === '!dice') {
@@ -46,10 +47,10 @@ function onMessageHandler (target, context, msg, self) {
   } else if (commandName === '!blame') {
     client.say(target, `tonytyLit`);
     console.log(`* Executed ${commandName} command`);
-  } else if (commandName === '!blameShaka') {
+  } else if (commandName === '!blameshaka') {
     client.say(target, `tonytyLit`);
     console.log(`* Executed ${commandName} command`);
-  } else if (commandName === '!gdiDeniz') {
+  } else if (commandName === '!gdideniz') {
     const num = rollDice();
     client.say(target, `tonytyLit`);
     console.log(`* Executed ${commandName} command`);
