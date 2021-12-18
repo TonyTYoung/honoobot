@@ -1,9 +1,14 @@
 require('dotenv').config();
 const crypto = require('crypto')
 const express = require('express');
+const path = require('path');
 const app = express();
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+
 let port = process.env.PORT;
-if (port == null || port == "") {
+if (port == null || port === "") {
     port = 8080;
 }
 app.listen(port, () => {
@@ -24,7 +29,11 @@ const MESSAGE_TYPE_REVOCATION = 'revocation';
 // Prepend this string to the HMAC that you create from the message
 const HMAC_PREFIX = 'sha256=';
 
-app.use(express.json())
+app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
+
+let chatRouter = require('./routes/chat');
+app.use('/chat', chatRouter);
 
 app.post('/eventsub', (req, res) => {
     let secret = getSecret();
@@ -63,7 +72,7 @@ app.post('/eventsub', (req, res) => {
 
 
 function getSecret() {
-    // TODO: Get your secret from secure storage. This is the secret you passed 
+    // Get your secret from secure storage. This is the secret you passed
     // when you subscribed to the event.
     return process.env.SECRET;
 }
