@@ -154,7 +154,7 @@ function getChan(channel = '') {
     return channel.replace(/^#/, '');
 }
 
-function showMessage({ chan, type, message = '', data = {}, timeout = 10000, attribs = {} } = {}) {
+function showMessage({ chan, type, message = '', data = {}, timeout = 7000, attribs = {} } = {}) {
     let chatLine_ = document.createElement('div');
     let chatLine = document.createElement('div');
     chatLine_.classList.add('chat-line');
